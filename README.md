@@ -1,285 +1,293 @@
-# ♠️ 정제 포커 (Refine Poker)
+# ♠️ Refine Poker
 
-## 📖 개요
+## 📖 Overview
 
-정제 포커(Refine Poker)는 전통적인 포커 족보 시스템을 기반으로 한 로그라이크 덱빌딩 카드 게임입니다.
+Refine Poker is a roguelike deck-building card game based on traditional poker hand rankings.
 
-플레이어와 AI는 트럼프 카드 2세트를 합친 총 104장의 커뮤니티 덱에서 각각 20장을 받아 기본 덱을 구성합니다. 이후 카드 제거와 추가를 통해 덱을 정제하고, 포커 듀얼을 통해 승점을 획득합니다.
+Both the player and the AI opponent begin with a 20-card deck drawn from a shared Community Deck consisting of two combined standard decks (104 cards total). Throughout the game, players refine their decks by removing unwanted cards and acquiring stronger ones, then compete in poker duels to earn Victory Points.
 
-게임은 총 5라운드 동안 진행되며, 각 라운드는 다음 세 단계로 구성됩니다.
+The game lasts for five rounds. Each round consists of three phases:
 
-* 정제 페이즈 (Refine Phase)
-* 듀얼 페이즈 (Duel Phase)
-* 특수 페이즈 (Special Phase)
+* Refine Phase
+* Duel Phase
+* Special Phase
 
-최종적으로 더 많은 승점을 획득한 플레이어가 승리합니다.
+The player with the highest total Victory Points at the end of the game wins.
 
 ---
 
-# 📝 실행 방법
+# 📝 How to Run
 
-## 1. .NET 10 SDK가 설치되어 있는 경우
+## Option 1: .NET 10 SDK Installed
 
-1. GitHub 저장소 우측 상단의 **Code** 버튼을 클릭합니다.
-2. **Download ZIP**을 선택하여 프로젝트를 다운로드합니다.
-3. 압축을 해제합니다.
-4. `run.bat` 파일을 실행합니다.
+1. Click the **Code** button on the GitHub repository page.
+2. Select **Download ZIP**.
+3. Extract the downloaded archive.
+4. Run `run.bat`.
 
-## 2. .NET 10 SDK가 설치되어 있지 않은 경우
+## Option 2: .NET 10 SDK Not Installed
 
-1. GitHub 저장소 우측 상단의 **Code** 버튼을 클릭합니다.
-2. **Download ZIP**을 선택하여 프로젝트를 다운로드합니다.
-3. 압축을 해제합니다.
-4. 다음 경로로 이동합니다.
+1. Click the **Code** button on the GitHub repository page.
+2. Select **Download ZIP**.
+3. Extract the downloaded archive.
+4. Navigate to:
 
 ```text
 bin/Debug/net10.0/
 ```
 
-5. `RefinePoker.exe` 파일을 실행합니다.
+5. Run:
+
+```text
+RefinePoker.exe
+```
 
 ---
 
-# 🎮 게임 진행 방법
+# 🎮 Gameplay
 
-## 게임 시작 전
+## Before the Game
 
-### 1. 언어 선택
+### Language Selection
 
-플레이어는 다음 두 언어 중 하나를 선택할 수 있습니다.
+Choose one of the following languages:
 
-* KOR (한국어)
-* ENG (영어)
+* KOR (Korean)
+* ENG (English)
 
-선택 이후 게임 내 모든 텍스트는 해당 언어로 출력됩니다.
-
----
-
-### 2. AI 난이도 선택
-
-게임에는 네 가지 난이도의 AI가 존재합니다.
-
-#### 🟢 초급
-
-모든 선택을 무작위로 수행합니다.
-
-#### 🟡 중급
-
-가능한 선택마다 10회의 시뮬레이션을 수행한 뒤 가장 좋은 결과를 선택합니다.
-
-#### 🔴 고급
-
-가능한 모든 선택지의 기댓값을 계산하여 최적의 선택을 수행합니다.
-
-#### 👑 챌린지
-
-고급 AI와 동일한 알고리즘을 사용하지만, 추가적인 특수 규칙이 적용됩니다.
+All game text will be displayed in the selected language.
 
 ---
 
-# 🔄 라운드 진행
+### AI Difficulty Selection
 
-각 라운드는 다음 세 단계로 진행됩니다.
+The game provides four AI difficulty levels.
 
-## ① 정제 페이즈 (Refine Phase)
+#### 🟢 Beginner
 
-덱을 압축하고 원하는 카드를 확보하는 단계입니다.
+All decisions are made randomly.
 
-### 제거(Remove)
+#### 🟡 Intermediate
 
-* 내 덱에서 무작위 카드 5장이 공개됩니다.
-* 원하는 만큼 선택하여 제거할 수 있습니다.
-* 제거된 카드는 커뮤니티 덱으로 되돌아가 섞입니다.
-* 단, 덱 크기는 최소 8장 이상이어야 합니다.
+Simulates each available option 10 times and chooses the option with the best result.
 
-### 추가(Add)
+#### 🔴 Advanced
 
-* 커뮤니티 덱에서 카드 5장이 공개됩니다.
-* 원하는 카드를 선택하여 자신의 덱에 추가할 수 있습니다.
+Calculates the expected value of all available options and chooses the optimal action.
 
-AI 또한 난이도에 맞는 방식으로 카드를 제거하고 추가합니다.
+#### 👑 Challenge
+
+Uses the same decision-making algorithm as the Advanced AI while applying additional boss-specific rules.
 
 ---
 
-## ② 듀얼 페이즈 (Duel Phase)
+# 🔄 Round Structure
 
-정제된 덱으로 실제 승부를 진행하는 단계입니다.
+Each round consists of the following phases.
 
-### 드로우
+## ① Refine Phase
 
-양측 모두 자신의 덱에서 5장을 뽑아 손패를 구성합니다.
+Improve your deck by removing weak cards and obtaining stronger ones.
 
-### 멀리건(Mulligan)
+### Remove
 
-각 플레이어는 한 번에 한해 원하는 수의 카드를 교체할 수 있습니다.
+* Five random cards from your deck are revealed.
+* You may remove any number of those cards.
+* Removed cards are returned to the Community Deck and shuffled.
+* Your deck may never contain fewer than 8 cards.
 
-1. 손패에서 원하는 카드를 선택합니다.
-2. 선택한 카드를 덱으로 되돌립니다.
-3. 동일한 수만큼 새로운 카드를 뽑습니다.
+### Add
 
-### 족보 판정
+* Five cards from the Community Deck are revealed.
+* You may add any number of those cards to your deck.
 
-텍사스 홀덤의 족보 체계를 사용합니다.
-
-특수 능력 또는 보스 효과로 인해 6장 이상의 카드를 보유하게 될 경우, 그중 가장 높은 가치를 가지는 5장 조합이 자동으로 선택됩니다.
-
-### 승점 획득
-
-듀얼에서 승리한 플레이어는 현재 라운드 번호만큼 기본 승점을 획득합니다.
-
-예시
-
-* 1라운드 승리 → 1점
-* 3라운드 승리 → 3점
-* 5라운드 승리 → 5점
-
-일부 특수 능력은 추가 승점을 제공할 수 있습니다.
+The AI performs the same actions according to its difficulty level.
 
 ---
 
-## ③ 특수 페이즈 (Special Phase)
+## ② Duel Phase
 
-2라운드 종료 후 한 번만 진행됩니다.
+Compete using your refined deck.
 
-무작위로 등장한 4개의 능력 중 하나를 선택하여 획득합니다.
+### Draw
 
-### 능력 등장 확률
+Both players draw five cards from their decks.
 
-| 등급    | 확률  |
-| ----- | --- |
-| ★     | 5%  |
-| ★★    | 15% |
-| ★★★   | 30% |
-| ★★★★  | 35% |
-| ★★★★★ | 15% |
+### Mulligan
 
-AI 역시 난이도에 따라 적절한 능력을 획득합니다.
+Once per duel, a player may:
 
----
+1. Select any number of cards from their hand.
+2. Return those cards to the deck.
+3. Draw the same number of replacement cards.
 
-# 👑 챌린지 보스 시스템
+### Hand Evaluation
 
-챌린지 모드에서는 게임 규칙 자체를 변화시키는 12명의 특수 보스와 대결할 수 있습니다.
+Texas Hold'em hand rankings are used.
 
-### ⚙️ 기계의 왕 마키나
+Certain abilities and boss effects may allow players to draw 6 or 7 cards. In such cases, the game automatically evaluates the strongest possible 5-card poker hand.
 
-매 라운드 종료 시 새로운 특수 능력을 획득합니다.
+### Victory Points
 
-### ✨ 별의 여왕 스텔라
+The winner of the duel gains Victory Points equal to the current round number.
 
-시작 시 승점 4점을 보유한 상태로 게임을 시작합니다.
+Examples:
 
-### 🧙 현자 아달란
+* Round 1 Victory → 1 VP
+* Round 3 Victory → 3 VP
+* Round 5 Victory → 5 VP
 
-게임 시작 전 40장의 카드 중 20장을 직접 선택하는 드래프트 방식으로 진행됩니다.
-
-### 🪞 거울의 여왕 미라쥬
-
-2라운드 종료 시 플레이어의 덱과 능력을 그대로 복사합니다.
-
-### 🧌 거인의 왕 골리앗
-
-듀얼 페이즈에서 항상 7장의 카드를 뽑습니다.
-
-### 👁️ 심연의 왕 베누스
-
-정제 페이즈에서 공개되는 카드 수가 3장으로 감소합니다.
-
-### 💰 황금의 왕 골드윙
-
-라운드 승점을 2배로 획득하지만 멀리건 사용 시 승점을 잃습니다.
-
-### 🌀 뒤틀린 왕 델타
-
-포커 족보의 순위가 완전히 반전됩니다.
-
-### 🌿 숲의 여왕 실피드
-
-정제 페이즈에서 카드 제거가 불가능합니다.
-
-### 📜 기록의 왕 단테
-
-빨간색 카드가 모두 제거되며 스페이드와 클로버만 사용합니다.
-
-### 🐾 백수의 왕 베히모스
-
-매 라운드 시작 시 플레이어 덱의 카드 4장을 무작위로 파괴합니다.
-
-### ⏳ 시간의 여왕 아이온
-
-1라운드 시작 시 특수 능력을 획득하며, 총 3라운드 후 게임이 종료됩니다.
+Certain abilities may grant additional Victory Points.
 
 ---
 
-# 📝 요구사항 변경 내역 및 타당성
+## ③ Special Phase
 
-최종 구현물은 초기 제안서 대비 일부 기능이 변경 및 확장되었습니다.
+Occurs only once, after Round 2.
 
-## 변경점 1. AI 시스템 확장
+Four random abilities are presented, and the player chooses one.
 
-### 초기 제안
+### Ability Rarity
 
-플레이어는 무작위 AI와 5라운드 동안 대결한다.
+| Rarity | Probability |
+| ------ | ----------- |
+| ★      | 5%          |
+| ★★     | 15%         |
+| ★★★    | 30%         |
+| ★★★★   | 35%         |
+| ★★★★★  | 15%         |
 
-### 최종 구현
-
-* 초급 AI
-* 중급 AI
-* 고급 AI
-* 챌린지 보스 12종
-
-### 변경 이유
-
-기존 AI만으로는 반복 플레이 시 단조로움이 발생하였습니다. 다양한 난이도와 특수 기믹을 추가하여 전략성과 반복 플레이 가치를 높이고자 하였습니다.
+The AI also gains abilities according to its difficulty level.
 
 ---
 
-## 변경점 2. 능력 획득 방식 변경
+# 👑 Challenge Boss System
 
-### 초기 제안
+Challenge Mode features 12 unique bosses that modify the core rules of the game.
 
-2라운드 종료 시 무작위 능력을 획득한다.
+### ⚙️ Machina, King of Machines
 
-### 최종 구현
+Gains a new ability at the end of every round.
 
-무작위로 제시된 4개의 능력 중 하나를 선택한다.
+### ✨ Stella, Queen of Stars
 
-### 변경 이유
+Begins the game with 4 Victory Points.
 
-완전 무작위 방식은 플레이어의 전략을 무너뜨리는 경우가 많았습니다. 선택지를 제공함으로써 전략적 의사결정의 중요성을 높이고자 하였습니다.
+### 🧙 Adalan, the Sage
+
+Before the game starts, both players draft 20 cards from a pool of 40 cards.
+
+### 🪞 Mirage, Queen of Mirrors
+
+Copies the player's deck and abilities after Round 2.
+
+### 🧌 Goliath, King of Giants
+
+Always draws 7 cards during the Duel Phase.
+
+### 👁️ Venus, King of the Abyss
+
+The player may only view 3 cards during the Refine Phase.
+
+### 💰 Goldwing, King of Gold
+
+Earns double Victory Points, but loses points whenever a Mulligan is performed.
+
+### 🌀 Delta, the Twisted King
+
+Completely reverses poker hand rankings.
+
+### 🌿 Sylphid, Queen of the Forest
+
+The player cannot remove cards during the Refine Phase.
+
+### 📜 Dante, King of Records
+
+All red-suited cards are removed. Only Spades and Clubs remain.
+
+### 🐾 Behemoth, King of Beasts
+
+Destroys 4 random cards from the player's deck at the start of every round.
+
+### ⏳ Aion, Queen of Time
+
+Starts with a special ability in Round 1 and forces the game to end after Round 3.
 
 ---
 
-## 변경점 3. 멀리건 시스템 추가
+# 📝 Requirement Change Log
 
-### 초기 제안
+The final implementation differs from the original proposal in several ways.
 
-5장을 뽑아 즉시 족보를 비교한다.
+## Change 1: Expanded AI System
 
-### 최종 구현
+### Original Requirement
 
-한 차례 멀리건을 수행할 수 있다.
+The player competes against a random AI for five rounds.
 
-### 변경 이유
+### Final Implementation
 
-좋은 덱을 구성하더라도 단 한 장의 불운으로 원하는 족보를 완성하지 못하는 경우가 많았습니다. 멀리건을 통해 운 요소를 일부 완화하고 전략적 선택의 여지를 제공하고자 하였습니다.
+* Beginner AI
+* Intermediate AI
+* Advanced AI
+* 12 Challenge Bosses
+
+### Justification
+
+The original AI became repetitive during testing. Additional difficulty levels and unique boss mechanics significantly improved replayability and strategic depth.
 
 ---
 
-# 🤖 LLM 사용 경험
+## Change 2: Ability Selection System
 
-## 사용 목적
+### Original Requirement
 
-1. 프로젝트 구조 설계 및 모듈 분리에 대한 조언
-2. 능력 밸런스 검증 및 시뮬레이션 수행
-3. 고급 AI 알고리즘 설계 보조
-4. README 및 내용의 번역
+The player receives one random ability after Round 2.
 
-## 추가 프롬프트가 필요했던 부분
+### Final Implementation
 
-고급 AI가 특정 능력의 가치를 0으로 평가하는 문제가 발생하였습니다. 이를 해결하기 위해 고려해야 할 요소들을 정리한 뒤 추가적인 프롬프트를 통해 알고리즘을 개선하였습니다.
+The player chooses one ability from four randomly generated options.
 
-## 아쉬웠던 점
+### Justification
 
-1. 다른 카드 게임 프로젝트와 혼동하여 부적절한 답변을 제공하는 경우가 있었습니다.
-2. 수업에서 다루지 않은 프로그래밍 기법을 사용하여 이후 유지보수가 어려운 코드가 생성되는 경우가 있었습니다.
+A completely random reward often disrupted the player's strategy. Allowing players to choose from multiple options creates more meaningful decisions and rewards planning.
+
+---
+
+## Change 3: Mulligan System
+
+### Original Requirement
+
+Players draw five cards and immediately compare poker hands.
+
+### Final Implementation
+
+Players may perform one Mulligan before hand evaluation.
+
+### Justification
+
+Without a Mulligan system, even a well-constructed deck could fail due to a single unlucky draw. The Mulligan mechanic adds strategic depth while reducing frustration caused by bad luck.
+
+---
+
+# 🤖 LLM Usage Experience
+
+## What the LLM Was Used For
+
+1. Designing the overall project structure and module organization.
+2. Running simulations to balance abilities and identify edge cases.
+3. Assisting with the design of the Advanced AI algorithm.
+4. Drafting the initial version of this README.
+
+## What Required Additional Prompting
+
+The Advanced AI occasionally evaluated certain abilities as having zero value. Additional prompts were required to identify missing evaluation factors and improve the decision-making model.
+
+## Limitations Encountered
+
+1. The LLM occasionally confused this project with another card game project discussed in a separate conversation and produced irrelevant suggestions.
+2. The LLM sometimes generated code using programming techniques that had not been covered in class, making future maintenance and modification more difficult.
+
+---
+
+Thank you for playing Refine Poker!
