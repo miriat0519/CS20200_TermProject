@@ -277,7 +277,7 @@ Without a Mulligan system, even a well-constructed deck could fail due to a sing
 1. Designing the overall project structure and module organization.
 2. Running simulations to balance abilities and identify edge cases.
 3. Assisting with the design of the Advanced AI algorithm.
-4. Drafting the initial version of this README.
+4. Translates Codes and README into Eng.
 
 ## What Required Additional Prompting
 
